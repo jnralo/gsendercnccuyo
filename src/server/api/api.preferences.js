@@ -13,10 +13,10 @@ export const replace = (req, res) => {
 
     try {
         preferencesObj = prefs;
-        res.send({ message: 'gSender preferences saved' });
+        res.send({ message: 'CNCuyo Control preferences saved' });
     } catch (err) {
         res.status(ERR_INTERNAL_SERVER_ERROR).send({
-            msg: 'Failed to save gSender preferences'
+            msg: 'Failed to save CNCuyo Control preferences'
         });
     }
 };

@@ -827,7 +827,7 @@ function generateSupportFile() {
                 <Page style={styles.body}>
                     <Text style={styles.title}>Diagnostics Report</Text>
                     <Text style={styles.author}>
-                        gSender v{version} • Generated on{' '}
+                        CNCuyo Control v{version} • Generated on{' '}
                         {new Date().toLocaleDateString()}
                     </Text>
 

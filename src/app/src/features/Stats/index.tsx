@@ -80,7 +80,7 @@ export function Stats() {
                             }
                             icon={<FaBookBookmark />}
                         >
-                            Learn about starting with gSender and how to use
+                            Learn about starting with CNCuyo Control and how to use
                             specific features
                         </ExternalLink>
                         <ExternalLink
@@ -96,7 +96,7 @@ export function Stats() {
                             link={'https://github.com/Sienci-Labs/gsender'}
                             icon={<FaGithub />}
                         >
-                            Submit issues or grab the latest version of gSender
+                            Submit issues or grab the latest version of CNCuyo Control
                         </ExternalLink>
                     </div>
                     <AlarmPreview />

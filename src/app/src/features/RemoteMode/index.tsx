@@ -166,7 +166,7 @@ export function RemoteModeDialog({
                             </div>
                             <p className="dark:text-white text-sm">
                                 <b>Note:</b> Clicking "Save" will ask you to
-                                restart gSender so that the settings can be
+                                restart CNCuyo Control so that the settings can be
                                 updated.
                             </p>
                             <hr />

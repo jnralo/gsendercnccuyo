@@ -1,8 +1,8 @@
 module.exports = {
   default: {
     error: { corruptedWorkspaceSettings: false },
-    name: 'gSender',
-    productName: 'gSender',
+    name: 'CNCuyo Control',
+    productName: 'CNCuyo Control',
     version: '1.0.0',
     webroot: '/',
     log: { level: 'warn' },

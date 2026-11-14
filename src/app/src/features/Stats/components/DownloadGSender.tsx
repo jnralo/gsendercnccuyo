@@ -29,12 +29,12 @@ export function DownloadGSender({ version = '1.5.0', downloadPercent = 0 }) {
                 </svg>
                 <span className="sr-only">Info</span>
                 <h3 className="text-lg font-medium">
-                    gSender v{version} available to download!
+                    CNCuyo Control v{version} available to download!
                 </h3>
             </div>
             <div className="mt-2 mb-4 text-sm flex flex-col gap-2">
                 <p>
-                    Clicking the below button will update gSender to version{' '}
+                    Clicking the below button will update CNCuyo Control to version{' '}
                     {version}.
                 </p>{' '}
                 <p>

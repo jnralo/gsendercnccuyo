@@ -82,7 +82,7 @@ const DataCollection = () => {
                                 Anonymous usage information
                             </SheetTitle>
                             <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                                Help us make gSender better
+                                Help us make CNCuyo Control better
                             </p>
                         </div>
 
@@ -120,7 +120,7 @@ const DataCollection = () => {
                             <div className="min-w-0 max-w-prose flex-1 space-y-4">
                                 <SheetDescription className="space-y-3 text-sm leading-relaxed">
                                     We&apos;d like a clearer picture of how many
-                                    people use gSender, which CNCs and computers
+                                    people use CNCuyo Control, which CNCs and computers
                                     it runs on, and general app usage, so we can
                                     focus improvements where they matter most.
                                     <br /> <br />

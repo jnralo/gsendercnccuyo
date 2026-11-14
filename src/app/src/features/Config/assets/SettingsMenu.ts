@@ -185,14 +185,14 @@ export const SettingsMenu: SettingsMenuSection[] = [
 						key: "widgets.connection.autoReconnect",
 						type: "boolean",
 						description:
-							"Automatically reconnect to the last machine you used when you open gSender.",
+							"Automatically reconnect to the last machine you used when you open CNCuyo Control.",
 					},
 					{
 						label: "Firmware fallback",
 						type: "select",
 						key: "workspace.defaultFirmware",
 						description:
-							"The firmware gSender will resort to using if automatic detection fails.",
+							"The firmware CNCuyo Control will resort to using if automatic detection fails.",
 						options: [GRBL, GRBLHAL],
 					},
 					{
@@ -292,14 +292,14 @@ export const SettingsMenu: SettingsMenuSection[] = [
 						key: "workspace.backupFreq",
 						type: "select",
 						description:
-							"Choose how often gSender will backup your settings. Useful in case you need to revert them in the future.",
+							"Choose how often CNCuyo Control will backup your settings. Useful in case you need to revert them in the future.",
 						options: ["On Update", "Daily", "Weekly", "Monthly"],
 					},
 					{
 						label: "Collect usage data",
 						key: "workspace.collectUsageDataStatus",
 						description:
-							"This info is collected anonymously to help us improve gSender by seeing how people use it.",
+							"This info is collected anonymously to help us improve CNCuyo Control by seeing how people use it.",
 						type: "boolean",
 						valueTransform: (v: any) => v === "accepted" || v === true,
 						onApply: () => {
@@ -483,7 +483,7 @@ export const SettingsMenu: SettingsMenuSection[] = [
 						type: "wizard",
 						wizard: KeyboardLinkWizard,
 						description:
-							"Control your CNC and navigate through gSender using custom key combinations on any keyboard, numpad, or macro pad.",
+							"Control your CNC and navigate through CNCuyo Control using custom key combinations on any keyboard, numpad, or macro pad.",
 					},
 					{
 						label: "Gamepad",
@@ -1860,7 +1860,7 @@ export const SettingsMenu: SettingsMenuSection[] = [
 						},
 					},
 					{
-						label: "gSender strategy",
+						label: "CNCuyo Control strategy",
 						type: "select",
 						description:
 							"Standard wizard will guide you through the steps to manually set up a new tool and resume cutting.\n\nFlexible is similar but uses a touch plate like a tool length sensor.\n\nFixed is also guided but fully automated, moving around and measuring tools for you. Homing and TLS required.\n\nCode is for fully custom setups.",

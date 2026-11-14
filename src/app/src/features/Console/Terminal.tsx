@@ -184,7 +184,7 @@ const Terminal = (
             }
 
             terminalInstance.current?.writeln(
-                color.white.bold(`gSender - [${controller.type}]`),
+                color.white.bold(`CNCuyo Control - [${controller.type}]`),
             );
 
             terminalInstance.current?.writeln(

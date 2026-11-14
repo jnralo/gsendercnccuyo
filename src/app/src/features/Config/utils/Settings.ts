@@ -89,7 +89,7 @@ const onImportConfirm = (file: File) => {
                     !importData.settings.commandKeys ||
                     !importData.events
                 ) {
-                    throw new Error('Invalid gSender settings file format');
+                    throw new Error('Invalid CNCuyo Control settings file format');
                 }
                 await storeUpdate(event.target.result as string);
             } catch (error) {
@@ -114,7 +114,7 @@ export function importSettings(e: React.ChangeEvent<HTMLInputElement>) {
     Confirm({
         title: 'Import Settings',
         content:
-            'All your current settings will be replaced. Are you sure you want to import your settings on gSender?',
+            'All your current settings will be replaced. Are you sure you want to import your settings on CNCuyo Control?',
         confirmLabel: 'Import Settings',
         onConfirm: () => onImportConfirm(file),
     });
@@ -124,7 +124,7 @@ export function handleRestoreDefaultClick() {
     Confirm({
         title: 'Restore Settings',
         content:
-            'All your current settings will be removed. Are you sure you want to restore default settings on gSender?',
+            'All your current settings will be removed. Are you sure you want to restore default settings on CNCuyo Control?',
         confirmLabel: 'Restore Settings',
         onConfirm: restoreDefault,
     });

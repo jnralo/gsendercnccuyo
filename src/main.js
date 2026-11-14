@@ -223,14 +223,14 @@ const main = () => {
                         log.warn('Remote mode binding failed — remote config has been reset.');
                         dialog.showMessageBoxSync(null, {
                             title: 'Remote Mode Configuration Error',
-                            message: 'gSender could not connect to the configured remote address.',
-                            detail: 'Remote mode has been disabled and the configuration has been reset. Please restart gSender.',
+                            message: 'CNCuyo Control could not connect to the configured remote address.',
+                            detail: 'Remote mode has been disabled and the configuration has been reset. Please restart CNCuyo Control.',
                         });
                     } else {
                         log.error('Unexpected server startup error:', error);
                         dialog.showMessageBoxSync(null, {
                             title: 'Server Startup Error',
-                            message: 'gSender encountered an unexpected error while starting.',
+                            message: 'CNCuyo Control encountered an unexpected error while starting.',
                             detail: String(error.message),
                         });
                     }
@@ -245,7 +245,7 @@ const main = () => {
                     log.warn(`Corrupt settings file recovered — backup at ${res.configBackupPath}`);
                     dialog.showMessageBoxSync(null, {
                         title: 'Settings File Recovered',
-                        message: 'Your gSender settings file was corrupted and has been reset to defaults.',
+                        message: 'Your CNCuyo Control settings file was corrupted and has been reset to defaults.',
                         detail: `A backup of the corrupted file was saved to:\n${res.configBackupPath}`,
                     });
                 }
@@ -278,7 +278,7 @@ const main = () => {
             };
             const options = {
                 ...bounds,
-                title: `gSender ${pkg.version}`,
+                title: `CNCuyo Control ${pkg.version}`,
                 kiosk,
             };
             const window = await windowManager.openWindow(url, options, splashScreen);
@@ -509,7 +509,7 @@ const main = () => {
                     minWidth: 550 / factor,
                     minHeight: 460 / factor,
                     useContentSize: true,
-                    title: 'gSender',
+                    title: 'CNCuyo Control',
                     parent: window,
                 };
                 // Hash router URL should look like '{url}/#/widget/:id'

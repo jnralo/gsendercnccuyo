@@ -76,7 +76,7 @@ function autospinSetup(firmwareType: string = null) {
         Confirm({
             title: 'Restart your Controller',
             content:
-                'Please manually restart your CNC controller (power cycle) and reconnect to gSender for these settings to take effect.',
+                'Please manually restart your CNC controller (power cycle) and reconnect to CNCuyo Control for these settings to take effect.',
             confirmLabel: 'OK',
             hideClose: true,
         });

@@ -17,7 +17,7 @@ export function SpindleCompletion() {
                 <ul className="text-left text-gray-700 dark:text-white space-y-2">
                     <li>• Restart your controller using the power switch</li>
                     <li>• Ensure the VFD is turned on before restarting the controller</li>
-                    <li>• Reconnect in gSender and verify your spindle is working as expected.</li>
+                    <li>• Reconnect in CNCuyo Control and verify your spindle is working as expected.</li>
                 </ul>
             </div>
         </div>

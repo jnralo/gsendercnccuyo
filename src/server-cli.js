@@ -91,7 +91,10 @@ program
 
 // Commander assumes that the first two values in argv are 'node' and appname, and then followed by the args.
 // This is not the case when running from a packaged Electron app. Here you have the first value appname and then args.
-const normalizedArgv = ('' + process.argv[0]).indexOf(pkg.name) >= 0
+// The packaged executable is named after productName (not pkg.name), so detect a packaged
+// Electron app directly instead of only matching the package name in argv[0].
+const isPackagedElectron = Boolean(process.versions.electron) && !process.defaultApp;
+const normalizedArgv = (isPackagedElectron || ('' + process.argv[0]).indexOf(pkg.name) >= 0)
     ? ['node', pkg.name, ...process.argv.slice(1)]
     : process.argv;
 if (normalizedArgv.length > 1) {

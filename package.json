@@ -1,5 +1,5 @@
 {
-  "name": "gSender",
+  "name": "cncuyo-control",
   "version": "1.6.5",
   "description": "Electron sender for GRBL based CNC machines",
   "author": {
@@ -96,19 +96,19 @@
     "test:app": "yarn --cwd src/app test"
   },
   "build": {
-    "appId": "org.sienci.gsender",
+    "appId": "ar.com.cncuyo.control",
     "extraMetadata": {
       "main": "./main.js"
     },
     "afterSign": "./notarize.js",
     "extends": null,
-    "artifactName": "${name}-${version}-${arch}.${ext}",
+    "artifactName": "CNCuyo-Control-Setup-${version}-${arch}.${ext}",
     "asar": true,
     "asarUnpack": [
       "**/*.node",
       "**/*.{dll,so,dylib,exe}"
     ],
-    "productName": "gSender",
+    "productName": "CNCuyo Control",
     "generateUpdatesFilesForAllChannels": true,
     "npmRebuild": false,
     "compression": "normal",

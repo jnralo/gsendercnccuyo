@@ -78,7 +78,7 @@ export function TLSLocation({ onComplete, onUncomplete }: StepProps) {
             <p className="text-sm text-gray-600 dark:text-gray-300">
                 Using your tallest tool gives the most Z-axis clearance above
                 the sensor, so its measured position ends up negative — this
-                is what lets gSender accurately probe tools of any length
+                is what lets CNCuyo Control accurately probe tools of any length
                 during a tool change without running out of travel.
             </p>
             <PositionSetter

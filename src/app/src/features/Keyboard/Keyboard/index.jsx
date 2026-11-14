@@ -445,7 +445,7 @@ const Keyboard = () => {
 
             let printContent = `
                 <div class="header">
-                    <h1>gSender Keyboard Shortcuts</h1>
+                    <h1>CNCuyo Control Keyboard Shortcuts</h1>
                     <p class="subtitle">Generated on ${new Date().toLocaleDateString()}</p>
                 </div>
             `;

@@ -1,3 +1,15 @@
+# CNCuyo Control
+
+Software de control para las máquinas CNC de **CNC Cuyo**, basado en [gSender](https://github.com/Sienci-Labs/gsender) de Sienci Labs Inc.
+
+- Versión base: gSender 1.6.5. Cambios de esta versión: marca y logo propios, solo instalador de Windows por ahora, sin telemetría ni envío de errores a terceros y sin actualizaciones automáticas de Sienci.
+- Licencia: **GNU GPLv3** (ver `LICENSE`). Se conservan los avisos de copyright originales de Sienci Labs Inc.
+- Logos de CNC Cuyo en `branding/`.
+
+---
+
+## Documento original de gSender
+
 # ![gSender logo](https://github.com/Sienci-Labs/sender/blob/master/src/app/images/icon-git.png?raw=true)gSender: connect to and control [grbl](https://github.com/grbl/grbl)-based CNCs
 
 gSender is a feature-packed CNC interface software designed to be clean and easy to learn while retaining a depth of capabilities for advanced users. Its development was begun in 2019 out of a passion for hobby CNC machines: **an interface reimagined to suit the needs of the at-home CNC user**.

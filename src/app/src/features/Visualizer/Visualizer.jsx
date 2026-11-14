@@ -2738,7 +2738,7 @@ class Visualizer extends Component {
         reduxStore.dispatch(
             updateFileRenderState({ renderState: RENDER_RENDERED }),
         );
-        console.timeEnd('gSender:fileLoad');
+        console.timeEnd('CNCuyo Control:fileLoad');
 
         typeof callback === 'function' && callback({ bbox: bbox });
 

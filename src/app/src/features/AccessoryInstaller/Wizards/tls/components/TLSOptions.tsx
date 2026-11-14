@@ -80,7 +80,7 @@ export function TLSOptions({ onComplete, onUncomplete }: StepProps) {
     return (
         <div className="flex flex-col gap-5 justify-start">
             <p className="dark:text-white">
-                Configure how gSender should handle tool changes with your
+                Configure how CNCuyo Control should handle tool changes with your
                 Tool Length Sensor (TLS).
             </p>
 

@@ -35,10 +35,6 @@ const About = () => {
         '../../../images/icon-square.png',
         import.meta.url,
     );
-    const canadaFlag = new URL(
-        '../../../images/canada-flag-icon.png',
-        import.meta.url,
-    );
 
     const renderReleaseNotes = () => {
         if (status === 'loading') {
@@ -132,14 +128,17 @@ const About = () => {
                 <div className="flex items-center gap-2">
                     <img
                         src={gSenderLogo.href}
-                        alt="gSender Logo"
+                        alt="CNCuyo Control Logo"
                         width={125}
                         height={125}
                     />
                     <div className="dark:text-white">
-                        <h1 className="text-3xl font-bold">gSender</h1>
+                        <h1 className="text-3xl font-bold">CNCuyo Control</h1>
                         <p className="text-sm text-gray-500 dark:text-white">
-                            By Sienci Labs
+                            Por CNC Cuyo
+                        </p>
+                        <p className="text-sm text-gray-500 dark:text-white">
+                            Basado en gSender de Sienci Labs
                         </p>
                         <p className="text-sm text-gray-500 dark:text-white">
                             Version {version}
@@ -148,14 +147,11 @@ const About = () => {
                 </div>
                 <div className="flex flex-col items-end gap-2 text-sm">
                     <p className=" text-gray-500 dark:text-white">
-                        Copyright © {new Date().getFullYear()} Sienci Labs Inc.
+                        Copyright © {new Date().getFullYear()} CNC Cuyo
                     </p>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-500 dark:text-white">
-                            Made in Canada
-                        </span>
-                        <img src={canadaFlag.href} alt="Canada Flag" />
-                    </div>
+                    <p className=" text-gray-500 dark:text-white">
+                        gSender © Sienci Labs Inc. (Canadá)
+                    </p>
                     <p>
                         <a
                             href="https://github.com/Sienci-Labs/gsender/blob/master/LICENSE"
@@ -170,16 +166,16 @@ const About = () => {
             </div>
 
             <p className="text-md md:text-lg dark:text-white">
-                gSender is a free and feature-packed CNC control software,
+                CNCuyo Control is a free and feature-packed CNC control software,
                 designed to be clean and easy to learn while retaining a depth
                 of capabilities for advanced users. Many thousands of people
-                trust gSender to control their grbl and grblHAL-based CNCs every
+                trust CNCuyo Control to control their grbl and grblHAL-based CNCs every
                 day, and they keep coming back for its ease of use, engaged
                 community, and reliability.
             </p>
 
             <div>
-                <h2 className="text-2xl text-blue-500 mb-2">gSender Team</h2>
+                <h2 className="text-2xl text-blue-500 mb-2">CNCuyo Control Team</h2>
                 <div className="text-md md:text-lg dark:text-white">
                     {team.map((member, index) => (
                         <span key={member.name}>

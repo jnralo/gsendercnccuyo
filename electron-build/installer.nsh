@@ -48,7 +48,7 @@ FunctionEnd
 # user token so gSender does not run as administrator.
 !define MUI_FINISHPAGE_RUN
 !define MUI_FINISHPAGE_RUN_FUNCTION RunAsUser
-!define MUI_FINISHPAGE_RUN_TEXT "Run gSender"
+!define MUI_FINISHPAGE_RUN_TEXT "Run CNCuyo Control"
 
 Function RunAsUser
     # Launch via explorer.exe so the app inherits explorer's normal

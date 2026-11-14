@@ -413,7 +413,7 @@ export function* initialize(): Generator<any, void, any> {
         visualizeWorker.onmessage = visualizeResponse;
         const jobId = ++visualizeJobId;
         setActiveVisualizeJobId(jobId);
-        console.time('gSender:fileLoad');
+        console.time('CNCuyo Control:fileLoad');
         visualizeWorker.postMessage({
             jobId,
             content,

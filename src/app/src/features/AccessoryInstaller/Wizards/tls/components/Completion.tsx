@@ -34,7 +34,7 @@ export function TLSCompletion() {
                             (power cycle)
                         </li>
                         <li>
-                            • Reconnect in gSender to finish setting up your
+                            • Reconnect in CNCuyo Control to finish setting up your
                             Tool Length Sensor.
                         </li>
                     </ul>
