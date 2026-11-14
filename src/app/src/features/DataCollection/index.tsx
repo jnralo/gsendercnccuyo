@@ -20,8 +20,11 @@ const isDev =
         ? process.env.NODE_ENV === 'development'
         : import.meta?.env?.MODE === 'development';
 
+// Recoleccion de datos de uso (PostHog) DESACTIVADA: no se muestra el aviso de consentimiento.
+const TELEMETRY_ENABLED = false;
+
 const DataCollection = () => {
-    if (isDev) return null;
+    if (isDev || !TELEMETRY_ENABLED) return null;
 
     const posthog = usePostHog();
     const [open, setOpen] = useState(false);

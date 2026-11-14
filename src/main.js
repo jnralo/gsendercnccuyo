@@ -39,7 +39,6 @@ import isOnline from 'is-online';
 import log from 'electron-log';
 import path from 'path';
 import fs from 'fs';
-import * as Sentry from '@sentry/electron/main';
 import WinReg from 'winreg';
 import WindowManager from './electron-app/WindowManager';
 import launchServer from './server-cli';
@@ -74,12 +73,9 @@ const externalRendererUrl = process.env.NODE_ENV === 'development'
     ? process.env.ELECTRON_RENDERER_URL
     : '';
 
-if (process.env.NODE_ENV === 'production') {
-    Sentry.init({
-        dsn: 'https://eeb4899f0415aa6bc9de477a7faeb720@o558751.ingest.us.sentry.io/4509479105986560',
-        release: pkg.version,
-    });
-}
+// Reporte de errores a Sentry DESACTIVADO (antes enviaba datos a Sienci Labs).
+// Actualizaciones automaticas DESACTIVADAS hasta tener un canal de releases propio.
+const AUTO_UPDATE_ENABLED = false;
 
 const main = () => {
     // https://github.com/electron/electron/blob/master/docs/api/app.md#apprequestsingleinstancelock
@@ -579,7 +575,7 @@ const main = () => {
             });
         }
         //Check for available updates at end to avoid try-catch failing to load events
-        if (process.platform === 'win32') {
+        if (AUTO_UPDATE_ENABLED && process.platform === 'win32') {
             const internetConnectivity = await isOnline();
             if (internetConnectivity) {
                 autoUpdater.autoDownload = false; // We don't want to force update but will prompt until it is updated
