@@ -26,7 +26,48 @@ import * as longMillGrblHALEEPROM from './grblHAL/longmill';
 import * as millOneGrblEEPROM from './grbl/millone';
 import * as altmillSettings from './grblHAL/Altmill';
 import * as voronCascadeSettings from './grblHAL/voronCascade';
+import * as cncuyoSettings from './grbl/cncuyo';
 export default [
+    // --- Maquinas CNC Cuyo (ver features/MachineCatalog) ---
+    // `height` (recorrido Z) es provisorio hasta confirmar el dato de cada modelo.
+    {
+        id: 200,
+        company: 'CNC Cuyo',
+        name: 'CNC Cuyo 6040',
+        type: '',
+        version: '',
+        mm: {
+            width: 400,
+            depth: 600,
+            height: 100,
+        },
+    },
+    {
+        id: 201,
+        company: 'CNC Cuyo',
+        name: 'CNC Cuyo 9060',
+        type: '',
+        version: '',
+        mm: {
+            width: 600,
+            depth: 900,
+            height: 100,
+        },
+        eepromSettings: cncuyoSettings.CNCUYO_9060,
+    },
+    {
+        id: 202,
+        company: 'CNC Cuyo',
+        name: 'CNC Cuyo 11090',
+        type: '',
+        version: '',
+        mm: {
+            width: 900,
+            depth: 1100,
+            height: 100,
+        },
+        eepromSettings: cncuyoSettings.CNCUYO_11090,
+    },
     {
         id: 0,
         company: 'Sienci Labs',

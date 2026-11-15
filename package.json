@@ -119,7 +119,14 @@
       "!**/*.map"
     ],
     "extraResources": [
-      "./node_modules/@electron/remote/**"
+      "./node_modules/@electron/remote/**",
+      {
+        "from": "electron-build/drivers",
+        "to": "drivers",
+        "filter": [
+          "**/*"
+        ]
+      }
     ],
     "directories": {
       "buildResources": "electron-build",

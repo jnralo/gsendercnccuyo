@@ -1,0 +1,11 @@
+Instaladores de drivers USB que se incluyen en el programa (carpeta "drivers" de la aplicación).
+
+Poner acá los instaladores oficiales, con EXACTAMENTE estos nombres
+(son los que busca la pantalla "Drivers", ver src/main.js, 'drivers:install'):
+
+  CH341SER.EXE                  -> WCH CH340/CH341   https://www.wch-ic.com/downloads/CH341SER_EXE.html
+  CP210xVCPInstaller_x64.exe    -> Silicon Labs      https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers
+  FTDI_CDM_Setup.exe            -> FTDI              https://ftdichip.com/drivers/vcp-drivers/
+
+Antes de incluir cada uno, revisar la licencia de redistribución del fabricante.
+Si falta un archivo, la pantalla avisa y ofrece ir al sitio del fabricante.

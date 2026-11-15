@@ -43,12 +43,16 @@ import SDCard from 'app/features/SDCard';
 import { FaSdCard } from 'react-icons/fa';
 import { LuDrill } from 'react-icons/lu';
 import { AccessoryInstaller } from 'app/features/AccessoryInstaller';
+import { MachineCatalog } from 'app/features/MachineCatalog';
+import { Drivers } from 'app/features/Drivers';
 
 export const ReactRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Workspace />}>
                 <Route index element={<></>} />
+                <Route path="models" element={<MachineCatalog />} />
+                <Route path="drivers" element={<Drivers />} />
                 <Route
                     path="configuration"
                     element={

@@ -39,6 +39,7 @@ import isOnline from 'is-online';
 import log from 'electron-log';
 import path from 'path';
 import fs from 'fs';
+import { execFile } from 'child_process';
 import WinReg from 'winreg';
 import WindowManager from './electron-app/WindowManager';
 import launchServer from './server-cli';
@@ -411,6 +412,58 @@ const main = () => {
             ipcMain.handle('check-remote-status', (channel) => {
                 log.debug(hostInformation);
                 return hostInformation;
+            });
+
+            // Instalador de drivers USB (solo Windows). Los archivos permitidos son una lista
+            // fija: el renderer solo pasa un id, nunca una ruta.
+            ipcMain.handle('drivers:install', async (channel, driverId) => {
+                const DRIVER_INSTALLERS = {
+                    ch340: 'CH341SER.EXE',
+                    cp210x: 'CP210xVCPInstaller_x64.exe',
+                    ftdi: 'FTDI_CDM_Setup.exe',
+                };
+
+                if (process.platform !== 'win32') {
+                    return { status: 'unsupported' };
+                }
+
+                const fileName = DRIVER_INSTALLERS[driverId];
+                if (!fileName) {
+                    return { status: 'unknown' };
+                }
+
+                const driversDir = app.isPackaged
+                    ? path.join(process.resourcesPath, 'drivers')
+                    : path.join(__dirname, '..', '..', 'electron-build', 'drivers');
+                const installerPath = path.join(driversDir, fileName);
+
+                if (!fs.existsSync(installerPath)) {
+                    return { status: 'missing', fileName };
+                }
+
+                const escapedPath = installerPath.replace(/'/g, "''");
+                return new Promise((resolve) => {
+                    execFile(
+                        'powershell.exe',
+                        [
+                            '-NoProfile',
+                            '-NonInteractive',
+                            '-Command',
+                            `Start-Process -FilePath '${escapedPath}' -Verb RunAs -Wait`,
+                        ],
+                        (error) => {
+                            if (error) {
+                                log.error(error);
+                                resolve({
+                                    status: 'error',
+                                    message: String(error.message || error),
+                                });
+                                return;
+                            }
+                            resolve({ status: 'ok' });
+                        },
+                    );
+                });
             });
 
             ipcMain.handle('get-windows-registry', async (channel) => {
