@@ -79,6 +79,8 @@ export function HelperToggle({ minimized }: HelperToggleProps) {
             className={cn(
                 'flex w-full flex-col gap-0.5 content-center items-center text-sm text-gray-500 group rounded-xl transition-all duration-1000 opacity-100 border border-transparent dark:text-gray-400',
                 {
+                    // Solo se muestra cuando hay un asistente o ayuda activa
+                    invisible: !helperEnabled,
                     'border bg-orange-200 bg-opacity-30 animate-bounce':
                         helperEnabled,
                     'border-transparent bg-transparent bg-opacity-100':

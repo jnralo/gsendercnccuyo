@@ -13,6 +13,7 @@ import { ReactRoutes } from './react-routes';
 import { AccessibilitySettingsHandler } from './features/Helper/AccessibilitySettingsHandler';
 import { posthog } from 'posthog-js';
 import isElectron from 'is-electron';
+import { initTranslation } from 'app/lib/translate';
 
 function App() {
     useEffect(() => {
@@ -32,6 +33,9 @@ function App() {
         });
 
         sagaMiddleware.run(rootSaga);
+
+        // Idioma de la interfaz (espanol por defecto)
+        initTranslation();
 
         const shouldSendUsageData = store.get(
             'workspace.collectUsageDataStatus',

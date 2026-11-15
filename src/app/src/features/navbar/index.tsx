@@ -1,4 +1,4 @@
-import { FaTasks, FaThLarge, FaUsb } from 'react-icons/fa';
+import { FaTasks, FaUsb } from 'react-icons/fa';
 import { RiToolsFill } from 'react-icons/ri';
 import { IoSpeedometerOutline } from 'react-icons/io5';
 import cx from 'classnames';
@@ -76,12 +76,6 @@ export const NavBar = () => {
                     onClick={(e) => checkIfNeedsBlock(e, 'tools')}
                 />
 
-                <NavbarLink
-                    href="models"
-                    icon={FaThLarge}
-                    label="Modelos"
-                    onClick={(e) => checkIfNeedsBlock(e, 'models')}
-                />
                 <NavbarLink
                     href="drivers"
                     icon={FaUsb}

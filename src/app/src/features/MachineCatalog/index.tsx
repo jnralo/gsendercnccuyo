@@ -8,7 +8,7 @@ import { toast } from 'app/lib/toaster';
 import { useSettings } from 'app/features/Config/utils/SettingsContext.tsx';
 import defaultMachineProfiles from 'app/features/Config/assets/MachineDefaults/defaultMachineProfiles.ts';
 
-import { CNCUYO_MODELS, CatalogModel } from './catalog';
+import { CNCUYO_LINES, CatalogModel } from './catalog';
 import { MachineSchematic } from './MachineSchematic';
 
 export function MachineCatalog() {
@@ -37,90 +37,81 @@ export function MachineCatalog() {
     return (
         <Page
             title="Modelos de máquina"
-            description="Elegí tu modelo de CNC Cuyo y el programa carga sus medidas y ajustes."
+            description="Elegí tu modelo de CNC Cuyo."
             withFixedArea
         >
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pb-4">
-                {CNCUYO_MODELS.map((model) => {
-                    const profile = defaultMachineProfiles.find(
-                        (p) => p.id === model.profileId,
-                    );
-                    const isSelected = machineProfile?.id === model.profileId;
+            <div data-no-translate>
+                {CNCUYO_LINES.map((line) => (
+                    <div key={line.title} className="mb-6 dark:text-white">
+                        <h2 className="text-xl font-bold">{line.title}</h2>
+                        <p className="text-sm text-gray-500 dark:text-gray-300 mb-3">
+                            {line.description}
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {line.models.map((model) => {
+                                const profile = defaultMachineProfiles.find(
+                                    (p) => p.id === model.profileId,
+                                );
+                                const isSelected =
+                                    machineProfile?.id === model.profileId;
 
-                    return (
-                        <div
-                            key={model.profileId}
-                            className={cn(
-                                'border rounded-lg p-4 flex flex-col gap-3 bg-white dark:bg-dark dark:border-gray-700 dark:text-white',
-                                isSelected &&
-                                    'border-blue-500 ring-2 ring-blue-300 dark:ring-blue-800',
-                            )}
-                        >
-                            <div className="h-40 flex items-center justify-center">
-                                {profile && (
-                                    <MachineSchematic
-                                        width={profile.mm.width}
-                                        depth={profile.mm.depth}
-                                    />
-                                )}
-                            </div>
-
-                            <div>
-                                <div className="flex items-center justify-between gap-2">
-                                    <h2 className="text-xl font-bold">
-                                        {model.name}
-                                    </h2>
-                                    {isSelected && (
-                                        <span className="text-xs font-semibold bg-blue-500 text-white rounded px-2 py-0.5">
+                                return (
+                                    <button
+                                        type="button"
+                                        key={model.profileId}
+                                        onClick={() => selectModel(model)}
+                                        className={cn(
+                                            'border rounded-lg p-3 flex flex-col items-center gap-1 text-center bg-white dark:bg-dark dark:border-gray-700 hover:border-blue-400',
+                                            isSelected &&
+                                                'border-blue-500 ring-2 ring-blue-300 dark:ring-blue-800',
+                                        )}
+                                    >
+                                        <div className="h-32 w-32">
+                                            {profile && (
+                                                <MachineSchematic
+                                                    width={profile.mm.width}
+                                                    depth={profile.mm.depth}
+                                                />
+                                            )}
+                                        </div>
+                                        <span className="text-lg font-bold">
+                                            {model.name}
+                                        </span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-300">
+                                            {model.summary}
+                                        </span>
+                                        <span
+                                            className={cn(
+                                                'text-xs font-semibold rounded px-2 py-0.5 mt-1',
+                                                isSelected
+                                                    ? 'bg-blue-500 text-white'
+                                                    : 'invisible',
+                                            )}
+                                        >
                                             Seleccionado
                                         </span>
-                                    )}
-                                </div>
-                                <p className="text-sm text-gray-500 dark:text-gray-300">
-                                    {model.summary}
-                                </p>
-                            </div>
-
-                            {model.specs.length > 0 && (
-                                <ul className="text-sm list-disc ml-5 flex flex-col gap-1">
-                                    {model.specs.map((spec) => (
-                                        <li key={spec}>{spec}</li>
-                                    ))}
-                                </ul>
-                            )}
-
-                            {model.pending && (
-                                <p className="text-xs text-amber-600 dark:text-amber-400">
-                                    {model.pending}
-                                </p>
-                            )}
-
-                            <Button
-                                variant={isSelected ? 'outline' : 'primary'}
-                                className="mt-auto"
-                                onClick={() => selectModel(model)}
-                            >
-                                {isSelected
-                                    ? 'Modelo seleccionado'
-                                    : 'Seleccionar este modelo'}
-                            </Button>
+                                    </button>
+                                );
+                            })}
                         </div>
-                    );
-                })}
-            </div>
+                    </div>
+                ))}
 
-            <div className="border rounded-lg p-4 mb-4 dark:border-gray-700 dark:text-white flex items-center justify-between gap-4">
-                <p className="text-sm">
-                    Para enviar los ajustes del modelo a la máquina: conectala y
-                    en Config usá <strong>Restaurar valores por defecto</strong>.
-                    Solo se envían los valores confirmados de ese modelo.
-                </p>
-                <Button
-                    variant="outline"
-                    onClick={() => navigate('/configuration')}
-                >
-                    Ir a Config
-                </Button>
+                <div className="border rounded-lg p-4 mb-4 dark:border-gray-700 dark:text-white flex items-center justify-between gap-4">
+                    <p className="text-sm">
+                        Los valores internos de la máquina (pasos por mm,
+                        velocidades, aceleraciones) se ven y se editan en
+                        Config, con la máquina conectada. Desde ahí también se
+                        pueden restaurar los valores de fábrica del modelo
+                        elegido.
+                    </p>
+                    <Button
+                        variant="outline"
+                        onClick={() => navigate('/configuration')}
+                    >
+                        Editar valores
+                    </Button>
+                </div>
             </div>
         </Page>
     );

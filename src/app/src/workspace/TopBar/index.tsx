@@ -3,6 +3,7 @@ import SpindleLaserStatus from 'app/components/SpindleLaserStatus';
 import StatusIcons from 'app/features/StatusIcons';
 import { RemoteMenuFlyout } from 'app/features/RemoteMode/components/RemoteMenuFlyout.tsx';
 import CenterArea from './CenterArea';
+import { QuickSettings } from './QuickSettings';
 import { IconUpdater } from 'app/features/IconUpdater';
 import { useEffect } from 'react';
 import store from 'app/store';
@@ -32,6 +33,8 @@ export const TopBar = ({ isRemoteWindow }: Props) => {
             <CenterArea />
 
             <StatusIcons />
+
+            <QuickSettings />
 
             <SpindleLaserStatus />
         </div>

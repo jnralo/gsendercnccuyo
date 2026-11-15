@@ -68,6 +68,44 @@ export default [
         },
         eepromSettings: cncuyoSettings.CNCUYO_11090,
     },
+    // Linea Smart: placa MKS DLC32, drivers TMC2209, Wi-Fi y pendant opcional.
+    // Sin valores de fabrica hasta terminar las pruebas con esa placa.
+    {
+        id: 203,
+        company: 'CNC Cuyo',
+        name: 'CNC Cuyo 6040 Smart',
+        type: '',
+        version: '',
+        mm: {
+            width: 400,
+            depth: 600,
+            height: 100,
+        },
+    },
+    {
+        id: 204,
+        company: 'CNC Cuyo',
+        name: 'CNC Cuyo 9060 Smart',
+        type: '',
+        version: '',
+        mm: {
+            width: 600,
+            depth: 900,
+            height: 100,
+        },
+    },
+    {
+        id: 205,
+        company: 'CNC Cuyo',
+        name: 'CNC Cuyo 11090 Smart',
+        type: '',
+        version: '',
+        mm: {
+            width: 900,
+            depth: 1100,
+            height: 100,
+        },
+    },
     {
         id: 0,
         company: 'Sienci Labs',
