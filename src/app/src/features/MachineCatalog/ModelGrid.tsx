@@ -1,13 +1,10 @@
 import cn from 'classnames';
 
-import defaultMachineProfiles from 'app/features/Config/assets/MachineDefaults/defaultMachineProfiles.ts';
-
 import { CNCUYO_LINES } from './catalog';
-import { MachineSchematic } from './MachineSchematic';
 import { useSelectModel } from './useSelectModel';
 
 interface Props {
-    /** Tarjetas mas chicas, para usar dentro del asistente de inicio */
+    /** Sin titulos de linea largos, para usar dentro del asistente de inicio */
     compact?: boolean;
 }
 
@@ -27,9 +24,6 @@ export function ModelGrid({ compact = false }: Props) {
                     </p>
                     <div className="grid grid-cols-3 gap-3">
                         {line.models.map((model) => {
-                            const profile = defaultMachineProfiles.find(
-                                (p) => p.id === model.profileId,
-                            );
                             const isSelected = selectedId === model.profileId;
 
                             return (
@@ -37,43 +31,23 @@ export function ModelGrid({ compact = false }: Props) {
                                     type="button"
                                     key={model.profileId}
                                     onClick={() => selectModel(model)}
+                                    title={model.name}
                                     className={cn(
-                                        'border rounded-lg p-2 flex flex-col items-center gap-1 text-center bg-white dark:bg-dark dark:border-gray-700 hover:border-blue-400',
+                                        'relative rounded-xl overflow-hidden border-2 border-gray-300 dark:border-gray-700 hover:border-blue-400',
                                         isSelected &&
-                                            'border-blue-500 ring-2 ring-blue-300 dark:ring-blue-800',
+                                            'border-blue-500 ring-4 ring-blue-300 dark:ring-blue-800',
                                     )}
                                 >
-                                    <div className={compact ? 'h-20 w-20' : 'h-32 w-32'}>
-                                        {profile && (
-                                            <MachineSchematic
-                                                width={profile.mm.width}
-                                                depth={profile.mm.depth}
-                                            />
-                                        )}
-                                    </div>
-                                    <span
-                                        className={cn(
-                                            'font-bold',
-                                            compact ? 'text-sm' : 'text-lg',
-                                        )}
-                                    >
-                                        {model.name}
-                                    </span>
-                                    {!compact && (
-                                        <span className="text-sm text-gray-500 dark:text-gray-300">
-                                            {model.summary}
+                                    <img
+                                        src={model.image}
+                                        alt={`${model.name}. ${model.summary}`}
+                                        className="block w-full aspect-[4/3]"
+                                    />
+                                    {isSelected && (
+                                        <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs font-semibold bg-blue-500 text-white rounded px-2 py-0.5 shadow">
+                                            Seleccionado
                                         </span>
                                     )}
-                                    <span
-                                        className={cn(
-                                            'text-xs font-semibold rounded px-2 py-0.5',
-                                            isSelected
-                                                ? 'bg-blue-500 text-white'
-                                                : 'invisible',
-                                        )}
-                                    >
-                                        Seleccionado
-                                    </span>
                                 </button>
                             );
                         })}
