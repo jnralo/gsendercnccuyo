@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { FrownIcon } from 'lucide-react';
 import pubsub from 'pubsub-js';
 
+import { Simulator } from './Simulator';
+
 import * as WebGL from 'app/lib/three/WebGL';
 import { Widget } from 'app/components/Widget';
 import VisualizerWrapper from './VisualizerWrapper';
@@ -97,6 +99,7 @@ const PrimaryVisualizer = ({
 
                 <div className="h-full w-full absolute top-0 left-0">
                     <SoftLimitsWarningArea />
+                    <Simulator />
                     {WebGL.isWebGLAvailable() ? (
                         <VisualizerWrapper
                             show={showVisualizer}

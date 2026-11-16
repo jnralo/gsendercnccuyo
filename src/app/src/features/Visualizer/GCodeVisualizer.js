@@ -42,6 +42,7 @@ class GCodeVisualizer {
         this.vertices = [];
         this.colors = [];
         this.originalColors = null;
+        this.simulatedVertex = 0;
         this.isLaser = false;
         this.frames = []; // Example
         this.frameIndex = 0;
@@ -72,6 +73,7 @@ class GCodeVisualizer {
                 : colorArray;
         this.colors = baseColors;
         this.originalColors = null;
+        this.simulatedVertex = 0;
         const defaultColor = new THREE.Color(this.theme.get(CUTTING_PART));
         // --rotary
         this.countdown = 16;
@@ -416,6 +418,79 @@ class GCodeVisualizer {
         }
     }
 
+    /**
+     * Simulacion (CNCuyo Control): pinta como "ya recorrido" todo lo anterior a la linea
+     * indicada y devuelve la posicion de la herramienta en esa linea. Funciona hacia
+     * adelante y hacia atras, y no depende del estado del trabajo real.
+     * @param {number} lineIndex - Linea de G-code hasta la que se simula
+     */
+    simulateTo(lineIndex) {
+        if (!this.frames || this.frames.length === 0 || !this.vertices) {
+            return null;
+        }
+        const workpiece = this.group.children[0];
+        const colorAttr = workpiece?.geometry?.getAttribute('color');
+        if (!colorAttr) {
+            return null;
+        }
+        this._ensureOriginalColorsSnapshot();
+
+        const index = Math.max(0, Math.min(lineIndex, this.frames.length - 1));
+        const target = this.frames[index];
+        const current = this.simulatedVertex || 0;
+
+        if (target > current) {
+            const runColor = new THREE.Color(SECONDARY_COLOR);
+            const [r, g, b] = runColor.toArray();
+            const opacity = this.isLaser ? 1 : 0.3;
+            const colors = colorAttr.array;
+            for (let v = current; v < target; v++) {
+                const o = v * 4;
+                colors[o] = r;
+                colors[o + 1] = g;
+                colors[o + 2] = b;
+                colors[o + 3] = opacity;
+            }
+        } else if (target < current && this.originalColors) {
+            colorAttr.array.set(
+                this.originalColors.subarray(target * 4, current * 4),
+                target * 4,
+            );
+        }
+        this.simulatedVertex = target;
+        if (colorAttr.clearUpdateRanges) {
+            colorAttr.clearUpdateRanges();
+        }
+        colorAttr.needsUpdate = true;
+
+        const offset = Math.min(target, this.vertices.count - 1) * 3;
+        return {
+            x: this.vertices.array[offset],
+            y: this.vertices.array[offset + 1],
+            z: this.vertices.array[offset + 2],
+        };
+    }
+
+    /** Sale de la simulacion y devuelve los colores originales del recorrido. */
+    endSimulation() {
+        if (!this.simulatedVertex) {
+            return;
+        }
+        const workpiece = this.group?.children[0];
+        const colorAttr = workpiece?.geometry?.getAttribute('color');
+        if (colorAttr && this.originalColors) {
+            colorAttr.array.set(
+                this.originalColors.subarray(0, this.simulatedVertex * 4),
+                0,
+            );
+            if (colorAttr.clearUpdateRanges) {
+                colorAttr.clearUpdateRanges();
+            }
+            colorAttr.needsUpdate = true;
+        }
+        this.simulatedVertex = 0;
+    }
+
     getCurrentLocation() {
         const offset = this.frames[this.frameIndex] * 3; // Reconvert back to offset
         return {
@@ -434,6 +509,7 @@ class GCodeVisualizer {
         this.vertices = null;
         this.colors = null;
         this.originalColors = null;
+        this.simulatedVertex = 0;
         this.frames = null;
         this.frameIndex = 0;
         this.framesLength = 0;

@@ -407,7 +407,8 @@ class Visualizer extends Component {
         }
 
         // Update visualizer's frame index
-        if (this.visualizer) {
+        // Durante la simulacion el recorrido lo maneja el simulador, no el trabajo real
+        if (this.visualizer && !this.simulating) {
             const frameIndex = this.props.receivedLines;
             this.visualizer.setFrameIndex(frameIndex);
             // grey lines
@@ -1228,6 +1229,33 @@ class Visualizer extends Component {
                 this.updateCuttingToolPosition(data, {
                     forceUpdateAllAxes: true,
                 });
+            }),
+            // Simulador de G-code (solo en el visualizador principal)
+            pubsub.subscribe('simulate:frame', (_, line) => {
+                if (this.props.isSecondary || !this.visualizer) {
+                    return;
+                }
+                this.simulating = true;
+                const position = this.visualizer.simulateTo(line);
+                if (position) {
+                    this.updateCuttingToolPosition(position, {
+                        forceUpdateAllAxes: true,
+                    });
+                }
+                this.updateScene({ forceUpdate: true });
+            }),
+            pubsub.subscribe('simulate:stop', () => {
+                if (this.props.isSecondary || !this.simulating) {
+                    return;
+                }
+                this.simulating = false;
+                if (this.visualizer) {
+                    this.visualizer.endSimulation();
+                }
+                this.updateCuttingToolPosition(null, {
+                    forceUpdateAllAxes: true,
+                });
+                this.updateScene({ forceUpdate: true });
             }),
             pubsub.subscribe('outline:start', () => {
                 if (this.outlineRunning) {
