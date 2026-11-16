@@ -15,6 +15,7 @@ import { refreshPorts, refreshPortsOnParentEntry } from './utils/connection';
 import { PortListings } from './components/PortListings';
 import { DisconnectButton } from './components/DisconnectButton';
 import { Port } from './definitions';
+import { findMachinePort } from 'app/features/Drivers/drivers';
 import WidgetConfig from '../WidgetConfig/WidgetConfig';
 import pubsub from 'pubsub-js';
 import {
@@ -253,6 +254,19 @@ function Connection(props: ConnectionProps) {
     };
 
     const handleClick = () => {
+        // Un clic conecta directo si hay un unico puerto de una placa conocida.
+        // La lista de puertos sigue disponible al pasar el mouse, para elegir otro.
+        if (
+            connectionState === ConnectionState.DISCONNECTED ||
+            connectionState === ConnectionState.ERROR
+        ) {
+            const machinePort = findMachinePort(props.ports);
+            if (machinePort) {
+                handleConnect(machinePort.port, ConnectionType.USB);
+                setIsOpen(false);
+                return;
+            }
+        }
         setIsOpen((prev) => !prev);
     };
 

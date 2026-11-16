@@ -11,6 +11,10 @@ import { useWorkspaceState } from 'app/hooks/useWorkspaceState';
 import { ATCWidget } from 'app/features/ATC';
 import { useTypedSelector } from 'app/hooks/useTypedSelector.ts';
 import { RootState } from 'app/store/redux';
+import { useSimpleMode } from 'app/hooks/useSimpleMode';
+
+// Pestanas que se ocultan en la vista simple
+const SIMPLE_MODE_HIDDEN_TABS = ['Probe', 'Macros', 'ATC', 'Coolant', 'Rotary', 'Console'];
 
 export interface TabItem {
     label: string;
@@ -52,6 +56,7 @@ const Tools = () => {
     const rotary = useWidgetState('rotary');
     const { spindleFunctions, coolantFunctions, atcEnabled } =
         useWorkspaceState();
+    const simpleMode = useSimpleMode();
     const atcReport = useTypedSelector(
         (state: RootState) => state.controller.settings.info?.NEWOPT?.ATC,
     );
@@ -59,6 +64,10 @@ const Tools = () => {
     const atcEnabledOrCompiled = atcEnabled || atcReport === '1';
 
     const filteredTabs = tabs.filter((tab) => {
+        if (simpleMode && SIMPLE_MODE_HIDDEN_TABS.includes(tab.label)) {
+            return false;
+        }
+
         if (tab.label === 'Rotary' && !rotary.tab.show) {
             return false;
         }

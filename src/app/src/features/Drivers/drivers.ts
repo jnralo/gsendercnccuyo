@@ -69,3 +69,17 @@ export const DRIVERS: DriverInfo[] = [
         url: 'https://www.arduino.cc/en/software',
     },
 ];
+
+/**
+ * Devuelve el puerto de la máquina solo si hay UNO que coincide con una placa conocida.
+ * Si hay varios candidatos o ninguno devuelve null, y el usuario elige a mano.
+ */
+export function findMachinePort<T extends { port: string; manufacturer?: string }>(
+    ports: T[],
+): T | null {
+    const hints = DRIVERS.flatMap((driver) => driver.manufacturerHints);
+    const matches = ports.filter((p) =>
+        hints.some((hint) => (p.manufacturer || '').toLowerCase().includes(hint)),
+    );
+    return matches.length === 1 ? matches[0] : null;
+}

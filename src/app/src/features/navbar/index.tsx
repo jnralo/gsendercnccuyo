@@ -1,4 +1,5 @@
 import { FaTasks, FaUsb } from 'react-icons/fa';
+import { useSimpleMode } from 'app/hooks/useSimpleMode';
 import { RiToolsFill } from 'react-icons/ri';
 import { IoSpeedometerOutline } from 'react-icons/io5';
 import cx from 'classnames';
@@ -13,6 +14,7 @@ import pubsub from 'pubsub-js';
 
 export const NavBar = () => {
     const { settingsAreDirty, setSettingsAreDirty } = useSettings();
+    const simpleMode = useSimpleMode();
     const location = useLocation();
     const navigate = useNavigate();
     const blocker = new Blocker();
@@ -63,18 +65,22 @@ export const NavBar = () => {
                     label="Carve"
                     onClick={(e) => checkIfNeedsBlock(e, '/')}
                 />
-                <NavbarLink
-                    href="stats"
-                    icon={IoSpeedometerOutline}
-                    label="Stats"
-                    onClick={(e) => checkIfNeedsBlock(e, 'stats')}
-                />
-                <NavbarLink
-                    href="tools"
-                    icon={RiToolsFill}
-                    label="Tools"
-                    onClick={(e) => checkIfNeedsBlock(e, 'tools')}
-                />
+                {!simpleMode && (
+                    <>
+                    <NavbarLink
+                        href="stats"
+                        icon={IoSpeedometerOutline}
+                        label="Stats"
+                        onClick={(e) => checkIfNeedsBlock(e, 'stats')}
+                    />
+                    <NavbarLink
+                        href="tools"
+                        icon={RiToolsFill}
+                        label="Tools"
+                        onClick={(e) => checkIfNeedsBlock(e, 'tools')}
+                    />
+                    </>
+                )}
 
                 <NavbarLink
                     href="drivers"

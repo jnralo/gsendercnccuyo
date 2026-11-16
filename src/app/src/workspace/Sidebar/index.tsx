@@ -4,6 +4,7 @@ import { NavBar } from 'app/features/navbar';
 import { HelperToggle } from 'app/features/Helper/components/HelperToggle.tsx';
 
 import { ModelButton } from './ModelButton';
+import { FirstRunWizard } from 'app/features/FirstRunWizard';
 
 export const Sidebar = () => {
     return (
@@ -18,6 +19,7 @@ export const Sidebar = () => {
                 <HelperToggle minimized={false} />
             </div>
             <NavBar />
+            <FirstRunWizard />
         </div>
     );
 };
