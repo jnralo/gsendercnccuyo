@@ -35,7 +35,10 @@ export const Tabs = ({ items = [] }: TabbedProps) => {
         window.addEventListener('resize', checkScrollability);
 
         // if the active tab doesnt exist in the tabs list anymore, default to first tab
-        if (!items.find((value) => value.label === activeTab)) {
+        if (
+            items.length > 0 &&
+            !items.find((value) => value.label === activeTab)
+        ) {
             setActiveTab(items[0].label);
         }
     }, [items]);

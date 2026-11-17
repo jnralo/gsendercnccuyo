@@ -86,6 +86,23 @@ const Tools = () => {
         return true;
     });
 
+    // En vista simple pueden quedar todas las pestanas ocultas
+    if (filteredTabs.length === 0) {
+        return (
+            <Widget>
+                <Widget.Content>
+                    <div
+                        className="h-full flex items-center justify-center p-4 text-center text-sm text-gray-500 dark:text-gray-400"
+                        data-no-translate
+                    >
+                        Vista simple: las herramientas avanzadas están ocultas.
+                        Para verlas, tocá "Simple" en la barra de arriba.
+                    </div>
+                </Widget.Content>
+            </Widget>
+        );
+    }
+
     return (
         <Widget>
             <Widget.Content>
