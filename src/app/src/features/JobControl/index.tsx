@@ -15,6 +15,7 @@ import Overrides from './FeedOverride';
 import OutlineButton from './OutlineButton';
 import StartFromLine from './StartFromLine';
 import ProgressArea from './ProgressArea';
+import { SpindleToggle } from './SpindleToggle';
 import { SenderStatus } from 'app/lib/definitions/sender_feeder';
 import { JSX, useEffect, useState } from 'react';
 import pubsub from 'pubsub-js';
@@ -255,7 +256,10 @@ const JobControl: React.FC<JobControlProps> = ({
                     </div>
                 </div>
 
-                <div className="z-10 absolute top-[-30px] max-xl:top-[-34px] left-1/2 right-1/2 flex flex-row gap-2 justify-center items-center">
+                <div
+                    className="z-10 absolute top-[-30px] max-xl:top-[-34px] left-1/2 right-1/2 flex flex-row gap-2 justify-center items-center"
+                    data-tour="job-controls"
+                >
                     <ControlButton
                         type={START}
                         workflow={workflow}
@@ -281,9 +285,13 @@ const JobControl: React.FC<JobControlProps> = ({
                         fileLoaded={fileLoaded}
                         onStop={onStop}
                     />
+                    <SpindleToggle />
                 </div>
                 <Widget>
-                    <Widget.Content className="flex justify-center items-center flex-col">
+                    <Widget.Content
+                        className="flex justify-center items-center flex-col"
+                        data-tour="overrides"
+                    >
                         <div className="mt-4 max-xl:mt-0">
                             <Overrides
                                 ovF={ovF}

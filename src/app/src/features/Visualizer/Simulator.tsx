@@ -88,6 +88,7 @@ export function Simulator() {
                     type="button"
                     className="h-8 px-3 flex items-center gap-2 rounded border border-gray-400 bg-white text-gray-800 text-sm font-semibold hover:bg-gray-200 dark:bg-dark dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-700"
                     title="Ver el recorrido del trabajo sin mover la máquina"
+                    data-tour="simulate"
                     onClick={() => {
                         setActive(true);
                         goTo(0);

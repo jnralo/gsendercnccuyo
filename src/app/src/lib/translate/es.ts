@@ -131,6 +131,7 @@ export const ES: Record<string, string> = {
     Start: 'Iniciar',
     Stop: 'Detener',
     Hold: 'Pausa',
+    Pause: 'Pausa',
     Resume: 'Reanudar',
     Exit: 'Salir',
     'Are you sure?': '¿Seguro?',

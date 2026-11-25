@@ -414,7 +414,7 @@ function DRO({
     });
 
     return (
-        <div className="relative">
+        <div className="relative" data-tour="dro">
             <UnitBadge isRemote={isRemote} />
             <div
                 className={cn(
@@ -487,6 +487,7 @@ function DRO({
                     <Button
                         tooltip={{ content: 'Zero all axes', side: 'left' }}
                         text="Zero"
+                        data-tour="zero-all"
                         icon={<VscTarget className="w-5 h-5" />}
                         onClick={() => {
                             zeroAllAxes();
@@ -501,6 +502,7 @@ function DRO({
                         <AlertDialogTrigger asChild>
                             <Button
                                 text="Zero"
+                        data-tour="zero-all"
                                 icon={<VscTarget className="w-5 h-5" />}
                                 disabled={!canClick}
                                 aria-label="Zero all axes: Set current position as work zero for all axes"

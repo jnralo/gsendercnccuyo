@@ -294,6 +294,7 @@ function Connection(props: ConnectionProps) {
         <Popover open={isOpen} onOpenChange={setIsOpen}>
             <div
                 className="relative group z-50"
+                data-tour="connect"
                 onMouseEnter={() => {
                     refreshPortsOnParentEntry();
                     handleMouseEnter();

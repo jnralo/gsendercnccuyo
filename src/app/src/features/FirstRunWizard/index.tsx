@@ -225,9 +225,15 @@ export function FirstRunWizard() {
                 </div>
 
                 <div className="flex justify-between gap-2">
-                    <Button variant="ghost" onClick={finish}>
-                        Omitir
-                    </Button>
+                    <div className="flex flex-col">
+                        <Button variant="ghost" onClick={finish}>
+                            Omitir tutorial
+                        </Button>
+                        <span className="text-xs text-gray-500 dark:text-gray-400 px-4">
+                            Lo podés volver a abrir con el botón Tutorial de
+                            arriba.
+                        </span>
+                    </div>
                     <div className="flex gap-2">
                         {step > 0 && (
                             <Button
@@ -246,9 +252,23 @@ export function FirstRunWizard() {
                                 Siguiente
                             </Button>
                         ) : (
-                            <Button variant="primary" onClick={finish}>
-                                Terminar
-                            </Button>
+                            <>
+                                <Button variant="outline" onClick={finish}>
+                                    Terminar
+                                </Button>
+                                <Button
+                                    variant="primary"
+                                    onClick={() => {
+                                        finish();
+                                        pubsub.publish(
+                                            'cncuyo:tour:start',
+                                            'first-job',
+                                        );
+                                    }}
+                                >
+                                    Ver cómo hacer un trabajo
+                                </Button>
+                            </>
                         )}
                     </div>
                 </div>

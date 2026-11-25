@@ -19,6 +19,7 @@ export function ModelButton() {
         <NavLink
             to="/models"
             title="Elegir modelo de máquina"
+            data-tour="model"
             data-no-translate
             className={({ isActive }) =>
                 cn(

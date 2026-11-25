@@ -4,6 +4,7 @@ import store from 'app/store';
 import { useWorkspaceState } from 'app/hooks/useWorkspaceState';
 import { useSimpleMode } from 'app/hooks/useSimpleMode';
 import { setLanguage } from 'app/lib/translate';
+import { TutorialMenu } from 'app/features/Tutorial/TutorialMenu';
 
 const buttonClass =
     'h-8 min-w-8 px-2 flex items-center justify-center rounded border border-gray-300 bg-white text-gray-700 text-sm font-semibold hover:bg-gray-200 dark:bg-dark dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700';
@@ -18,13 +19,16 @@ export function QuickSettings() {
     const isDark = Boolean(workspace.enableDarkMode);
     const isSpanish = workspace.language !== 'en';
 
-    // "relative z-10": la barra tiene una capa central transparente que, sin esto,
-    // queda por encima de estos botones y se lleva los clics.
+    // A la derecha, al lado de los iconos de estado: a la izquierda chocaba con la
+    // informacion de la maquina. z-10 porque la capa central transparente de la
+    // barra queda por encima y se llevaria los clics.
     return (
         <div
-            className="relative z-10 flex items-center gap-1 max-sm:hidden"
+            className="absolute top-3 max-xl:top-2 right-48 z-10 flex items-center gap-1 max-sm:hidden"
             data-no-translate
+            data-tour="quick-settings"
         >
+            <TutorialMenu buttonClass={buttonClass} />
             <button
                 type="button"
                 className={buttonClass}

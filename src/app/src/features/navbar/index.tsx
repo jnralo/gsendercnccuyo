@@ -57,6 +57,7 @@ export const NavBar = () => {
                 className={cx(
                     'grid [grid-template-rows:minmax(0,30%)_auto_auto] gap-0 justify-end flex-grow self-stretch',
                 )}
+                data-tour="nav"
             >
                 <div className="py-5 border-gray-400 border-r-2 dark:border-gray-700"></div>
                 <NavbarLink

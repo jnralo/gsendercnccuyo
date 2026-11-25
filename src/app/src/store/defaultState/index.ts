@@ -177,6 +177,10 @@ const defaultState: State = {
         notifications: [],
         toastDuration: 0,
         enableDarkMode: false,
+        // CNCuyo Control: deben estar aca para que se guarden entre sesiones
+        cncuyoSetupDone: false,
+        language: 'es',
+        simpleMode: true,
         accessibility: {
             statusAnnouncements: false,
             jobProgressAnnouncements: false,
