@@ -181,6 +181,7 @@ const defaultState: State = {
         cncuyoSetupDone: false,
         language: 'es',
         simpleMode: true,
+        consoleLayout: 4,
         accessibility: {
             statusAnnouncements: false,
             jobProgressAnnouncements: false,

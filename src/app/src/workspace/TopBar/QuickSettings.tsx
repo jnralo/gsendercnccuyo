@@ -1,10 +1,15 @@
-import { LuMoon, LuSun } from 'react-icons/lu';
+import { LuMoon, LuSun, LuTerminal } from 'react-icons/lu';
+import cx from 'classnames';
 
 import store from 'app/store';
 import { useWorkspaceState } from 'app/hooks/useWorkspaceState';
 import { useSimpleMode } from 'app/hooks/useSimpleMode';
 import { setLanguage } from 'app/lib/translate';
 import { TutorialMenu } from 'app/features/Tutorial/TutorialMenu';
+import {
+    consoleState,
+    useConsoleOpen,
+} from 'app/features/ConsoleDock/consoleState';
 
 const buttonClass =
     'h-8 min-w-8 px-2 flex items-center justify-center rounded border border-gray-300 bg-white text-gray-700 text-sm font-semibold hover:bg-gray-200 dark:bg-dark dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700';
@@ -16,6 +21,7 @@ export function QuickSettings() {
         language?: string;
     };
     const simpleMode = useSimpleMode();
+    const consoleOpen = useConsoleOpen();
     const isDark = Boolean(workspace.enableDarkMode);
     const isSpanish = workspace.language !== 'en';
 
@@ -28,6 +34,20 @@ export function QuickSettings() {
             data-no-translate
             data-tour="quick-settings"
         >
+            <button
+                type="button"
+                className={cx(buttonClass, 'gap-1', {
+                    '!border-orange-500 !bg-orange-50 !text-orange-700 dark:!bg-orange-950 dark:!text-orange-300':
+                        consoleOpen,
+                })}
+                title={consoleOpen ? 'Ocultar la consola' : 'Mostrar la consola'}
+                data-tour="console-button"
+                onClick={() => consoleState.toggle()}
+            >
+                <LuTerminal />
+                {/* En pantallas chicas solo el icono, para no pisar el estado */}
+                <span className="max-2xl:hidden">Consola</span>
+            </button>
             <TutorialMenu buttonClass={buttonClass} />
             <button
                 type="button"

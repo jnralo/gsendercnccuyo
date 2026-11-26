@@ -47,7 +47,8 @@ export function TutorialMenu({ buttonClass }: { buttonClass: string }) {
                 data-tour="tutorial"
                 onClick={() => setOpen(!open)}
             >
-                <LuGraduationCap /> Tutorial
+                <LuGraduationCap />
+                <span className="max-2xl:hidden">Tutorial</span>
             </button>
             {open && (
                 <div className="absolute right-0 top-10 w-72 rounded-lg border border-gray-300 bg-white shadow-xl dark:bg-dark dark:border-gray-600 z-50 overflow-hidden">

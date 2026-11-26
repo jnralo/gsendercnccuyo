@@ -31,6 +31,11 @@ export const TOURS: Record<TourId, Tour> = {
                 title: 'Accesos rápidos',
                 body: (
                     <ul className="list-disc ml-5">
+                        <li>
+                            Consola: muestra lo que responde la máquina y
+                            permite escribirle comandos. Con los números 1 a 4
+                            de su barra elegís dónde aparece.
+                        </li>
                         <li>Tutorial: estas guías.</li>
                         <li>
                             Simple / Avanzado: muestra u oculta las opciones

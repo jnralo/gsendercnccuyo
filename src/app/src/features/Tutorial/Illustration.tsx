@@ -1,4 +1,7 @@
 import cnc9060 from './images/cnc9060.webp';
+// Misma imagen sin la superficie de la mesa: se dibuja encima de la madera para que
+// el portico y la fresadora queden por delante de ella.
+import cnc9060Front from './images/cnc9060-front.webp';
 
 // Ilustraciones animadas de los tutoriales. La base es el dibujo de la ficha tecnica
 // del 9060 y encima se animan la madera, el origen, el recorrido de la fresa, etc.
@@ -20,11 +23,11 @@ const P = (u: number, v: number): Point => [
     (1 - u) * (1 - v) * FL[1] + u * (1 - v) * FR[1] + (1 - u) * v * BL[1] + u * v * BR[1],
 ];
 
-// Madera de trabajo (zona libre de la mesa, detras del portico)
-const U0 = 0.05;
-const U1 = 0.4;
-const V0 = 0.55;
-const V1 = 0.92;
+// Madera de trabajo, al frente de la maquina y debajo de la fresadora
+const U0 = 0.1;
+const U1 = 0.48;
+const V0 = 0.04;
+const V1 = 0.32;
 const ORIGIN = P(U0, V0);
 const BOARD_X = P(U1, V0);
 const BOARD_Y = P(U0, V1);
@@ -107,6 +110,28 @@ function Board({ drop = false }: { drop?: boolean }) {
             <animate attributeName="opacity" values="0;1" dur="0.6s" fill="freeze" />
             {content}
         </g>
+    );
+}
+
+/** Vuelve a dibujar las piezas de la maquina que quedan por delante de la madera. */
+function MachineInFront() {
+    const side = BOARD.map(([x, y]) => [x, y + BOARD_THICKNESS] as Point);
+    return (
+        <>
+            <clipPath id="cnt-board-clip">
+                <polygon points={pts(BOARD)} />
+                <polygon points={pts([BOARD[0], BOARD[1], side[1], side[0]])} />
+                <polygon points={pts([BOARD[0], BOARD[3], side[3], side[0]])} />
+            </clipPath>
+            <image
+                href={cnc9060Front}
+                x={0}
+                y={0}
+                width={1863}
+                height={1012}
+                clipPath="url(#cnt-board-clip)"
+            />
+        </>
     );
 }
 
@@ -326,7 +351,7 @@ function CarvePath({ animated }: { animated: boolean }) {
     );
 }
 
-const MID_VIEW = '70 80 1320 700';
+const MID_VIEW = '470 330 1185 630';
 const SPINDLE_VIEW = '1010 300 430 470';
 const BOARD_VIEW = (() => {
     const xs = BOARD.map((p) => p[0]);
@@ -361,6 +386,7 @@ export function Illustration({ kind }: { kind: IllustrationKind }) {
             {kind === 'board' && (
                 <>
                     <Board drop />
+                    <MachineInFront />
                     <Clamps />
                 </>
             )}
@@ -368,6 +394,7 @@ export function Illustration({ kind }: { kind: IllustrationKind }) {
             {kind === 'xy' && (
                 <>
                     <Board />
+                    <MachineInFront />
                     <XYArrows />
                     <ToolTravel />
                     <Label at={[ORIGIN[0] - 20, ORIGIN[1] + 90]} text="Origen" color={ORANGE} />
@@ -376,6 +403,8 @@ export function Illustration({ kind }: { kind: IllustrationKind }) {
 
             {kind === 'z' && (
                 <g>
+                    <Board />
+                    <MachineInFront />
                     {/* papel bajo la fresa */}
                     <polygon
                         points={pts([
@@ -433,6 +462,7 @@ export function Illustration({ kind }: { kind: IllustrationKind }) {
             {kind === 'zero' && (
                 <>
                     <Board />
+                    <MachineInFront />
                     <XYArrows />
                     <Pulse at={ORIGIN} />
                     <Label at={[ORIGIN[0] + 10, ORIGIN[1] + 92]} text="X0 Y0 Z0" color="#111" />
@@ -441,6 +471,8 @@ export function Illustration({ kind }: { kind: IllustrationKind }) {
 
             {kind === 'spindle' && (
                 <g>
+                    <Board />
+                    <MachineInFront />
                     {[0, 1, 2].map((i) => (
                         <ellipse
                             key={i}
@@ -470,6 +502,7 @@ export function Illustration({ kind }: { kind: IllustrationKind }) {
                 <>
                     <Board />
                     <CarvePath animated />
+                    <MachineInFront />
                 </>
             )}
         </svg>

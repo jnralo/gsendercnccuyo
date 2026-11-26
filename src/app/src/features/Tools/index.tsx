@@ -89,7 +89,7 @@ const Tools = () => {
     // En vista simple pueden quedar todas las pestanas ocultas
     if (filteredTabs.length === 0) {
         return (
-            <Widget>
+            <Widget data-tour="tools-panel">
                 <Widget.Content>
                     <div
                         className="h-full flex items-center justify-center p-4 text-center text-sm text-gray-500 dark:text-gray-400"
@@ -104,7 +104,7 @@ const Tools = () => {
     }
 
     return (
-        <Widget>
+        <Widget data-tour="tools-panel">
             <Widget.Content>
                 <Tabs items={filteredTabs as TabItem[]} />
             </Widget.Content>

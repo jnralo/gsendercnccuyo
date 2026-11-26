@@ -94,6 +94,11 @@ import {
 	GCODE_TRANSLATION_TYPE,
 	translateGcode,
 } from "../../lib/gcode-translation";
+import {
+	isFluidNCLine,
+	parseConfigFileName,
+	toFluidNCSetting,
+} from "./fluidnc";
 // % commands
 const WAIT = "%wait";
 const PREHOOK_COMPLETE = "%pre_complete";
@@ -115,10 +120,26 @@ class GrblController {
 	// Connection
 	connection = null;
 
+	// FluidNC (CNCuyo Control): se detecta al conectar para traducir los ajustes
+	isFluidNC = false;
+
+	fluidncConfigFile = "config.yaml";
+
+	fluidncSaveTimer = null;
+
 	connectionEventListener = {
 		data: (data) => {
 			log.silly(`< ${data}`);
-			this.runner.parse("" + data);
+			const line = "" + data;
+			if (!this.isFluidNC && isFluidNCLine(line)) {
+				this.isFluidNC = true;
+				log.info("FluidNC detectado: se traducen los ajustes $1xx");
+			}
+			const configFile = parseConfigFileName(line);
+			if (configFile) {
+				this.fluidncConfigFile = configFile;
+			}
+			this.runner.parse(line);
 		},
 		close: (err) => {
 			this.ready = false;
@@ -294,6 +315,16 @@ class GrblController {
 						? comment[0].trim().replace(";", "")
 						: "";
 				line = line.replace(commentMatcher, "").trim();
+
+				// FluidNC: los ajustes $1xx son de solo lectura (error 162)
+				if (this.isFluidNC) {
+					const fluidncLine = toFluidNCSetting(line);
+					if (fluidncLine) {
+						line = fluidncLine;
+						this.scheduleFluidNCSave();
+					}
+				}
+
 				const ignoreEvent = context ? context.ignoreEvent : true;
 				context = this.populateContext(context);
 
@@ -2350,6 +2381,28 @@ class GrblController {
 		});
 
 		log.silly(`> ${data}`);
+	}
+
+	/**
+	 * FluidNC: guarda en el archivo de configuracion los ajustes cambiados, un rato
+	 * despues del ultimo cambio (asi se guarda una sola vez por tanda de ajustes).
+	 */
+	scheduleFluidNCSave() {
+		if (this.fluidncSaveTimer) {
+			clearTimeout(this.fluidncSaveTimer);
+		}
+		this.fluidncSaveTimer = setTimeout(() => {
+			this.fluidncSaveTimer = null;
+			if (this.isClose()) {
+				return;
+			}
+			const file = this.fluidncConfigFile || "config.yaml";
+			this.emit(
+				"serialport:read",
+				`[CNCuyo] Guardando ajustes en ${file} (FluidNC)`,
+			);
+			this.command("gcode", [`$CD=${file}`, "$$"]);
+		}, 1500);
 	}
 
 	writeln(data, context, emit = false) {

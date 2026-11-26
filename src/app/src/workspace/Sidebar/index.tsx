@@ -6,6 +6,7 @@ import { HelperToggle } from 'app/features/Helper/components/HelperToggle.tsx';
 import { ModelButton } from './ModelButton';
 import { FirstRunWizard } from 'app/features/FirstRunWizard';
 import { TourHost } from 'app/features/Tutorial/TourHost';
+import { ConsoleDock } from 'app/features/ConsoleDock';
 
 export const Sidebar = () => {
     return (
@@ -22,6 +23,7 @@ export const Sidebar = () => {
             <NavBar />
             <FirstRunWizard />
             <TourHost />
+            <ConsoleDock />
         </div>
     );
 };
